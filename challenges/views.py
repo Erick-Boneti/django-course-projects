@@ -21,16 +21,12 @@ monthly_challenges = {
 
 def month_list(request):
     months = list(monthly_challenges.keys())
-    dictionary_of_months = {}
     html_strings = ""
 
-    for i in range(1,13):
-        
-        dictionary_of_months[f"{i}"] = f"<li><a href='/challenges/{i}'>{months[i-1]}</a></li>"
-        #href="{redirect}"      redirect = reverse("month-challenge, args=[i]")
-
-    for items in dictionary_of_months.values():
-        html_strings += items
+    for month in months:
+        capitalized_month = month.capitalize()
+        month_path = reverse("month-challenge", args=[month])
+        html_strings += f"<li><a href=\"{month_path}\">{capitalized_month}</a></li>"
     
     response = f"<ol>{html_strings}</ol>"
     return HttpResponse(response)
